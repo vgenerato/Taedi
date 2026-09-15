@@ -1,0 +1,690 @@
+/* ---------------------------------------------------------------
+   Telas
+----------------------------------------------------------------*/
+
+/* — Hoje: resumo — */
+.daycard {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-5);
+  align-items: center;
+  padding: var(--s-5);
+  margin-bottom: var(--s-6);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+
+.daycard__body {
+  min-width: 0;
+}
+
+.daycard__title {
+  font-size: var(--step-2);
+  letter-spacing: -0.02em;
+}
+
+.daycard__meta {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.daycard__line {
+  margin-top: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* — Hoje: linha do tempo — */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding-left: 26px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--leaf) 0,
+    var(--leaf) var(--done, 0%),
+    var(--line) var(--done, 0%),
+    var(--line) 100%
+  );
+}
+
+.meal {
+  position: relative;
+}
+
+.meal::before {
+  content: '';
+  position: absolute;
+  left: -26px;
+  top: 21px;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-full);
+  background: var(--paper);
+  border: 2px solid var(--line-strong);
+  transition: background var(--base) var(--ease), border-color var(--base) var(--ease),
+    transform var(--base) var(--ease);
+}
+
+.meal--done::before {
+  background: var(--leaf);
+  border-color: var(--leaf);
+}
+
+.meal--skipped::before {
+  background: var(--clay);
+  border-color: var(--clay);
+}
+
+.meal--now::before {
+  border-color: var(--leaf);
+  transform: scale(1.25);
+  box-shadow: 0 0 0 4px var(--leaf-soft);
+}
+
+.meal__card {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color var(--base) var(--ease), background var(--base) var(--ease);
+}
+
+.meal--done .meal__card {
+  background: color-mix(in srgb, var(--leaf-soft) 55%, var(--surface));
+  border-color: color-mix(in srgb, var(--leaf) 22%, var(--line));
+}
+
+.meal--skipped .meal__card {
+  background: color-mix(in srgb, var(--clay-soft) 45%, var(--surface));
+  border-color: color-mix(in srgb, var(--clay) 20%, var(--line));
+}
+
+.meal--now .meal__card {
+  border-color: var(--leaf-ring);
+  box-shadow: var(--shadow-2);
+}
+
+.meal__top {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-4) var(--s-3);
+}
+
+.meal__time {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  letter-spacing: -0.01em;
+  flex: none;
+}
+
+.meal--done .meal__time,
+.meal--now .meal__time {
+  color: var(--leaf);
+}
+
+.meal__name {
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meal__items {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--s-4) var(--s-2);
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: 7px 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  width: 100%;
+  color: var(--ink);
+  border-radius: var(--r-sm);
+}
+
+.item + .item {
+  border-top: 1px dashed color-mix(in srgb, var(--line) 80%, transparent);
+}
+
+.item__box {
+  flex: none;
+  margin-top: 1px;
+  width: 19px;
+  height: 19px;
+  border-radius: 6px;
+  border: 1.5px solid var(--line-strong);
+  display: grid;
+  place-items: center;
+  color: transparent;
+  background: var(--surface);
+  transition: background var(--fast) var(--ease), border-color var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+
+.item:hover .item__box {
+  border-color: var(--leaf-ring);
+}
+
+.item--on .item__box {
+  background: var(--leaf);
+  border-color: var(--leaf);
+  color: var(--ink-on-accent);
+}
+
+.item__text {
+  font-size: var(--step-0);
+  line-height: 1.4;
+}
+
+.item--on .item__text {
+  color: var(--ink-2);
+}
+
+.item__qty {
+  color: var(--ink-3);
+  font-size: var(--step--1);
+}
+
+.item__alt {
+  display: block;
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.meal__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3) var(--s-3);
+}
+
+.meal__note {
+  padding: 0 var(--s-4) var(--s-3);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* — Comemoração — */
+.cheer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: var(--s-5);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  animation: fade var(--base) var(--ease);
+  border: 0;
+}
+
+.cheer__panel {
+  position: relative;
+  width: min(380px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-7) var(--s-6) var(--s-6);
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-3);
+  animation: pop var(--slow) var(--ease);
+}
+
+.cheer__title {
+  font-size: var(--step-3);
+  letter-spacing: -0.03em;
+}
+
+.cheer__seal {
+  display: grid;
+  place-items: center;
+  width: 108px;
+  height: 108px;
+  border-radius: var(--r-full);
+  background: var(--leaf-soft);
+  color: var(--leaf);
+  animation: seal var(--slow) var(--ease);
+}
+
+.cheer__rewards {
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@keyframes pop {
+  from {
+    transform: translateY(10px) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes seal {
+  0% {
+    transform: scale(0.6) rotate(-12deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.06) rotate(3deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* — Plano — */
+.planmeal {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.planmeal:last-child {
+  border-bottom: 0;
+}
+
+.planmeal__time {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  width: 58px;
+  flex: none;
+}
+
+.planmeal__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.planmeal__name {
+  font-weight: 600;
+  font-size: var(--step-0);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.planmeal__sub {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.planmeal--off {
+  opacity: 0.5;
+}
+
+.planmeal__actions {
+  display: flex;
+  gap: 2px;
+  flex: none;
+}
+
+/* — Editor de itens — */
+.itemedit {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.itemedit .input {
+  flex: 1;
+}
+
+.dayspick {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dayspick__day {
+  width: 38px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: all var(--fast) var(--ease);
+}
+
+.dayspick__day[aria-pressed='true'] {
+  background: var(--leaf);
+  border-color: var(--leaf);
+  color: var(--ink-on-accent);
+}
+
+/* — Importação de PDF — */
+.drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-8) var(--s-5);
+  text-align: center;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--ink-2);
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.drop--over {
+  border-color: var(--leaf);
+  background: var(--leaf-soft);
+}
+
+.review__meal {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface);
+}
+
+.review__meal--off {
+  opacity: 0.45;
+}
+
+.review__top {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+/* — Mês — */
+.cal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.cal__dow {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-bottom: 2px;
+}
+
+.cal__cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  padding: 0;
+  border-radius: var(--r-full);
+}
+
+.cal__cell:disabled {
+  cursor: default;
+}
+
+.cal__num {
+  position: absolute;
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+
+.cal__cell--full .cal__num {
+  color: var(--leaf);
+  font-weight: 600;
+}
+
+.cal__cell--today {
+  box-shadow: 0 0 0 1.5px var(--ink-3);
+}
+
+.cal__cell--sel {
+  box-shadow: 0 0 0 2px var(--leaf);
+}
+
+.cal__cell--void {
+  visibility: hidden;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+@media (min-width: 720px) {
+  .grid4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.split {
+  display: grid;
+  gap: var(--s-5);
+}
+
+@media (min-width: 860px) {
+  .split {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* — Gráfico de peso — */
+.chart {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart__line {
+  fill: none;
+  stroke: var(--leaf);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart__area {
+  fill: var(--leaf-soft);
+}
+
+.chart__dot {
+  fill: var(--leaf);
+}
+
+.chart__grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.chart__label {
+  font-size: 10px;
+  fill: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* — Conquistas — */
+.badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(102px, 1fr));
+  gap: var(--s-3);
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--s-4) var(--s-2);
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.badge__seal {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-full);
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+.badge__name {
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.badge__hint {
+  font-size: 11px;
+  color: var(--ink-3);
+  line-height: 1.3;
+}
+
+.badge--locked {
+  background: var(--paper-sunk);
+  border-color: transparent;
+}
+
+.badge--locked .badge__seal {
+  background: color-mix(in srgb, var(--ink-3) 14%, transparent);
+  color: var(--ink-3);
+}
+
+.badge--locked .badge__name {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+/* — Nível — */
+.level {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.level__mark {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border-radius: var(--r-full);
+  background: var(--leaf-soft);
+  color: var(--leaf);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: var(--r-full);
+  background: var(--paper-sunk);
+}
+
+.seg__btn {
+  border: 0;
+  background: none;
+  padding: 5px 12px;
+  border-radius: var(--r-full);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.seg__btn[aria-pressed='true'] {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-1);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.list__row:last-child {
+  border-bottom: 0;
+}
+
+.list__label {
+  font-size: var(--step-0);
+  font-weight: 500;
+}

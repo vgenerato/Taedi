@@ -1,0 +1,123 @@
+@property --done {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
+/* ---------------------------------------------------------------
+   Taedi — design tokens
+   Linguagem visual: papel quente, tinta escura, um verde de folha.
+   Tudo o que é cor, espaço, raio e sombra vive aqui.
+----------------------------------------------------------------*/
+
+:root {
+  /* — cor: superfícies — */
+  --paper: #fbf9f4;
+  --paper-sunk: #f4f0e7;
+  --surface: #ffffff;
+  --surface-raised: #fffdf9;
+
+  /* — cor: tinta — */
+  --ink: #1b1813;
+  --ink-2: #5b544a;
+  --ink-3: #8b8377;
+  --ink-on-accent: #f7faf4;
+
+  /* — cor: linhas — */
+  --line: #e6dfd2;
+  --line-strong: #d6cdbb;
+
+  /* — cor: acentos — */
+  --leaf: #4a6b3d;
+  --leaf-press: #3b5731;
+  --leaf-soft: #e9f0e3;
+  --leaf-ring: #a9c39a;
+
+  --ember: #bf5a2e;      /* sequência, urgência gentil */
+  --ember-soft: #fbeade;
+  --gold: #a9802f;       /* conquistas */
+  --gold-soft: #f7eed9;
+  --clay: #96504f;       /* refeição perdida */
+  --clay-soft: #f7e7e6;
+
+  /* — tipografia — */
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-ui: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.3125rem;
+  --step-3: 1.75rem;
+  --step-4: 2.375rem;
+  --step-5: 3.25rem;
+
+  /* — espaço (escala de 4) — */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 56px;
+
+  /* — raio — */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 999px;
+
+  /* — sombra (quente, discreta) — */
+  --shadow-1: 0 1px 2px rgba(45, 35, 20, 0.05);
+  --shadow-2: 0 1px 2px rgba(45, 35, 20, 0.05), 0 10px 24px -16px rgba(45, 35, 20, 0.25);
+  --shadow-3: 0 2px 4px rgba(45, 35, 20, 0.06), 0 24px 48px -24px rgba(45, 35, 20, 0.3);
+
+  /* — movimento — */
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --fast: 140ms;
+  --base: 240ms;
+  --slow: 520ms;
+
+  --nav-h: 66px;
+  --shell-max: 1080px;
+
+  color-scheme: light;
+}
+
+/* Modo escuro: mesma gramática, menos luz.
+   O tema é resolvido em JS e escrito em <html data-theme>. */
+:root[data-theme='dark'] {
+  --paper: #14130f;
+  --paper-sunk: #100f0c;
+  --surface: #1d1b16;
+  --surface-raised: #24211b;
+
+  --ink: #f1ece2;
+  --ink-2: #b3ab9d;
+  --ink-3: #847c6f;
+  --ink-on-accent: #10140e;
+
+  --line: #2e2b23;
+  --line-strong: #3d392f;
+
+  --leaf: #9cc48a;
+  --leaf-press: #b3d6a2;
+  --leaf-soft: #22291d;
+  --leaf-ring: #4d6640;
+
+  --ember: #e08a5c;
+  --ember-soft: #2b201a;
+  --gold: #d7ae62;
+  --gold-soft: #2a2419;
+  --clay: #d08d8b;
+  --clay-soft: #2b1f1e;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 24px -16px rgba(0, 0, 0, 0.7);
+  --shadow-3: 0 2px 4px rgba(0, 0, 0, 0.35), 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+
+  color-scheme: dark;
+}

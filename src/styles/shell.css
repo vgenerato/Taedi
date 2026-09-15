@@ -1,0 +1,216 @@
+/* ---------------------------------------------------------------
+   Estrutura: barra lateral no desktop, barra inferior no telefone
+----------------------------------------------------------------*/
+
+.shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: var(--s-5) var(--s-4) calc(var(--nav-h) + var(--s-8) + env(safe-area-inset-bottom));
+}
+
+/* — marca — */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.brand__mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+
+.brand__name {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.brand__tag {
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+/* — barra inferior (telefone) — */
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  height: calc(var(--nav-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(12px) saturate(1.4);
+  border-top: 1px solid var(--line);
+}
+
+.nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0;
+  transition: color var(--fast) var(--ease);
+}
+
+.nav__item[aria-current='page'] {
+  color: var(--ink);
+}
+
+.nav__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 26px;
+  border-radius: var(--r-full);
+  transition: background var(--base) var(--ease), color var(--base) var(--ease);
+}
+
+.nav__item[aria-current='page'] .nav__icon {
+  background: var(--leaf-soft);
+  color: var(--leaf);
+}
+
+/* — barra lateral (desktop) — */
+.rail {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .shell {
+    flex-direction: row;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .rail {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+    width: 232px;
+    flex: none;
+    height: 100dvh;
+    padding: var(--s-6) var(--s-4);
+    border-right: 1px solid var(--line);
+  }
+
+  .rail__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rail__item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: 9px 12px;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: none;
+    color: var(--ink-2);
+    font-size: var(--step-0);
+    font-weight: 500;
+    text-align: left;
+    transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+  }
+
+  .rail__item:hover {
+    background: var(--paper-sunk);
+    color: var(--ink);
+  }
+
+  .rail__item[aria-current='page'] {
+    background: var(--leaf-soft);
+    color: var(--leaf);
+  }
+
+  .rail__foot {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+
+  .shell__main {
+    padding: var(--s-7) var(--s-7) var(--s-9);
+    max-width: calc(var(--shell-max) - 232px + 232px);
+  }
+}
+
+/* — cabeçalho de página — */
+.page__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+}
+
+.page__title {
+  font-size: var(--step-3);
+  letter-spacing: -0.025em;
+}
+
+.page__sub {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+@media (min-width: 900px) {
+  .topbar--mobile {
+    display: none;
+  }
+}
+
+/* Cabeçalho com ações: no telefone as ações descem para uma linha própria. */
+@media (max-width: 640px) {
+  .page__head--actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--s-3);
+  }
+
+  .page__head--actions .btn {
+    flex: 1;
+  }
+}
