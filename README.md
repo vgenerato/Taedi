@@ -25,17 +25,69 @@ conta ou envio de arquivo para fora.
   aderência, melhor sequência, metas mensais ajustáveis e a curva de peso.
 - **Seus dados** — exportação e importação em JSON, tema claro/escuro/sistema.
 
-## Rodando
+## Testando
 
 ```bash
 npm install
-npm run dev        # ambiente de desenvolvimento
+npm run dev        # http://localhost:5173
 npm run build      # gera dist/
-npm run preview    # serve o dist/
+npm run preview    # serve o dist/ — é aqui que o PWA funciona de verdade
 npm test           # testes de regras e do leitor de PDF
 ```
 
 Requer Node 22+ (os testes usam o `node --test` com TypeScript nativo).
+
+Três formas de experimentar, da mais rápida à mais parecida com o uso real:
+
+1. **No computador** — `npm run dev`. Serve para mexer no plano, marcar
+   refeições e importar um PDF.
+2. **No celular, pela rede local** — `npm run dev -- --host` e abra no telefone
+   o endereço `Network:` que aparece no terminal (mesmo Wi‑Fi). O app funciona,
+   mas instalar na tela de início e o modo offline exigem HTTPS.
+3. **Publicado** — o caminho de verdade: uma URL HTTPS, o app instalado na tela
+   de início e funcionando sem internet. Veja abaixo.
+
+## Instalar como app (PWA)
+
+O app é um PWA completo: service worker com todos os arquivos em cache
+(inclusive o leitor de PDF, que continua funcionando sem rede), ícones,
+tela cheia sem barra de navegador e atualização automática quando uma
+versão nova é publicada.
+
+- **Android / Chrome / Edge** — abra a URL e toque em *Instalar*, ou use o
+  botão **Instalar no aparelho** em Progresso → Ajustes.
+- **iPhone / Safari** — Compartilhar → *Adicionar à Tela de Início*.
+- **Desktop** — ícone de instalar na barra de endereços.
+
+Depois de instalado, ele abre offline e mantém tudo o que já foi registrado.
+
+## Publicando na Vercel
+
+O repositório já traz `vercel.json` (build, fallback de rota e cache correto
+para o service worker). Pelo site: *Add New → Project*, importe este
+repositório e clique em Deploy — a detecção de Vite faz o resto. Pelo
+terminal:
+
+```bash
+npx vercel          # pré-visualização
+npx vercel --prod   # produção
+```
+
+Qualquer hospedagem de site estático serve (Netlify, Cloudflare Pages, GitHub
+Pages); o requisito é HTTPS, que todas oferecem.
+
+## E o Supabase?
+
+Hoje não é necessário: o app é local-first e guarda tudo no aparelho, o que o
+deixa rápido, offline e sem nenhum dado de saúde saindo do seu celular. O
+backup é o botão de exportar em Progresso → Ajustes.
+
+O Supabase passa a valer a pena quando você quiser **os mesmos registros em
+mais de um aparelho** (celular e computador), histórico protegido contra
+perder o telefone, ou compartilhar o acompanhamento com a nutricionista.
+Nesse caso entram conta de acesso, tabelas para plano, registros e metas com
+RLS por usuário e uma sincronização que respeite o modo offline. É uma camada
+por cima do que já existe — as regras em `src/lib` não mudam.
 
 ## Como o plano é lido do PDF
 

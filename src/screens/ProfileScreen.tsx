@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { Download, Flame, Trophy, Upload, Trash2, Check } from 'lucide-react'
+import { Check, Download, Flame, Share, Smartphone, Trash2, Trophy, Upload } from 'lucide-react'
 import { useAppState } from '../lib/store.ts'
 import { useToast } from '../components/Toast.tsx'
 import { badgeStates, snapshot } from '../lib/progress.ts'
@@ -7,6 +7,7 @@ import { importState, resetEverything, setSettings } from '../lib/actions.ts'
 import { parseImportedState } from '../lib/storage.ts'
 import { XP_PER_DAY, XP_PER_MEAL } from '../lib/selectors.ts'
 import { shortDayLabel } from '../lib/date.ts'
+import { useInstall } from '../lib/install.ts'
 
 const THEMES = [
   { id: 'auto', label: 'Sistema' },
@@ -20,6 +21,7 @@ export function ProfileScreen() {
   const snap = useMemo(() => snapshot(state), [state])
   const badges = useMemo(() => badgeStates(state, snap), [state, snap])
   const fileInput = useRef<HTMLInputElement>(null)
+  const install = useInstall()
   const [confirmReset, setConfirmReset] = useState(false)
 
   const exportData = () => {
@@ -130,6 +132,32 @@ export function ProfileScreen() {
                 onChange={(event) => setSettings({ name: event.target.value })}
               />
             </div>
+            {!install.installed && (
+              <div className="list__row">
+                <div>
+                  <p className="list__label">
+                    <Smartphone size={14} style={{ verticalAlign: '-2px' }} /> Instalar no aparelho
+                  </p>
+                  <p className="hint">
+                    {install.ios
+                      ? 'No iPhone: toque em Compartilhar e escolha "Adicionar à Tela de Início".'
+                      : 'Abre em tela cheia, com ícone próprio, e funciona sem internet.'}
+                  </p>
+                </div>
+                {install.canInstall ? (
+                  <button
+                    className="btn btn--sm btn--primary"
+                    onClick={() => {
+                      void install.install()
+                    }}
+                  >
+                    Instalar
+                  </button>
+                ) : (
+                  install.ios && <Share size={18} className="muted" />
+                )}
+              </div>
+            )}
             <div className="list__row">
               <span className="list__label">Tema</span>
               <div className="seg">
