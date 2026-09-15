@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "description": "Taedi — acompanhamento de dieta com metas, gamificação e importação de PDF.",
   "scripts": {
     "dev": "vite",
